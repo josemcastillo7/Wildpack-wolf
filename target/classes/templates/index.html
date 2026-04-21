@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WildPack — Animal Encyclopedia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* Your beautiful styles stay exactly the same */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #080808; font-family: 'Raleway', sans-serif; color: #ccc; }
+    nav { background: #0a0a0a; border-bottom: 1px solid #1a1a1a; padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Cinzel', serif; font-size: 20px; color: #e8e8e8; letter-spacing: 4px; }
+    .logo span { color: #c8a96e; }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul li a { color: #666; text-decoration: none; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+    nav ul li a:hover { color: #c8a96e; }
+
+    /* HERO */
+    .hero { position: relative; height: 92vh; display: flex; align-items: center; overflow: hidden; background: #060606; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, #1a1408 0%, transparent 60%), radial-gradient(ellipse at 30% 80%, #0a0a10 0%, transparent 50%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 80px; max-width: 560px; }
+    .hero-tag { font-size: 10px; letter-spacing: 5px; color: #c8a96e; text-transform: uppercase; margin-bottom: 16px; }
+    .hero-title { font-family: 'Cinzel', serif; font-size: 64px; line-height: 1.1; color: #f0f0f0; font-weight: 700; margin-bottom: 8px; }
+    .hero-title span { color: #c8a96e; }
+    .hero-subtitle { font-size: 13px; color: #555; line-height: 2; margin-bottom: 36px; letter-spacing: 0.5px; }
+    .hero-btn { display: inline-block; border: 1px solid #c8a96e; color: #c8a96e; padding: 14px 36px; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; background: transparent; text-decoration: none; }
+    .hero-btn:hover { background: #c8a96e; color: #080808; }
+
+    /* SECTION */
+    .section { padding: 80px 80px; background: #0a0a0a; }
+    .section-label { font-size: 10px; letter-spacing: 5px; color: #c8a96e; text-transform: uppercase; margin-bottom: 12px; }
+    .section-title { font-family: 'Cinzel', serif; font-size: 28px; color: #e0e0e0; margin-bottom: 40px; }
+
+    /* CARDS */
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .card { background: #0f0f0f; border: 1px solid #1c1c1c; border-radius: 4px; overflow: hidden; transition: border-color 0.3s; }
+    .card:hover { border-color: #c8a96e; }
+    .card-img-container { height: 200px; overflow: hidden; background: #0c0c0c; }
+    .card-img-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s; }
+    .card:hover img { opacity: 1; }
+    .card-body { padding: 20px; }
+    .card-title { font-family: 'Cinzel', serif; font-size: 14px; color: #ddd; margin-bottom: 8px; letter-spacing: 1px; }
+    .card-text { font-size: 12px; color: #555; line-height: 1.8; }
+    .card-tag { display: inline-block; margin-top: 14px; font-size: 9px; letter-spacing: 2px; color: #c8a96e; text-transform: uppercase; border-bottom: 1px solid #c8a96e44; }
+
+    footer { padding: 24px 80px; background: #060606; border-top: 1px solid #141414; display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 10px; color: #333; letter-spacing: 2px; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Wild<span>Pack</span></div>
+    <ul>
+      <li><a href="#">Mammals</a></li>
+      <li><a href="#">Predators</a></li>
+      <li><a href="#">Habitats</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Species spotlight</p>
+      <h1 class="hero-title">The <span th:text="${featuredAnimal.name}">Wild</span></h1>
+      <p class="hero-subtitle" th:text="${featuredAnimal.description}">Explore the world's most fascinating animals.</p>
+      <a href="#animals" class="hero-btn">Explore Species</a>
+    </div>
+  </section>
+
+  <section class="section" id="animals">
+    <p class="section-label">Featured species</p>
+    <h2 class="section-title">Animals of the Wild</h2>
+    
+    <div class="cards">
+      <div class="card" th:each="a : ${animals}">
+        <div class="card-img-container">
+          <img th:src="${a.imageUrl}" alt="Animal Photo">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title" th:text="${a.name}">Animal Name</h3>
+          <p style="font-size: 10px; color: #c8a96e; margin-bottom: 10px;" th:text="${a.species}">Latin Name</p>
+          <p class="card-text" th:text="${a.description}">Description</p>
+          <span class="card-tag" th:text="${a.habitat}">Habitat</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>WildPack — Animal Encyclopedia</p>
+    <p>Built with Spring Boot &amp; Thymeleaf</p>
+  </footer>
+
+</body>
+</html>
