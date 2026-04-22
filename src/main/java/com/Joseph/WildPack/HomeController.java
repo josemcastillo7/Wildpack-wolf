@@ -6,8 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller; // Ensure this import is here!
 import org.springframework.ui.Model;  // Ensure this import is here!
 import org.springframework.web.bind.annotation.GetMapping; // Ensure this import is here!
+
 @Controller
-public class HomeController { 
+public class HomeController {
 
     @GetMapping("/")
 public String home(Model model) {
