@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WildPack | Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .game-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 60px 20px 80px;
+      text-align: center;
+    }
+
+    /* LOBBY */
+    .lobby { }
+
+    .lobby-stats {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 32px 0;
+    }
+
+    .lobby-stat {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 4px;
+      padding: 16px 24px;
+      min-width: 100px;
+    }
+
+    .lobby-stat-n {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      color: #c9a84c;
+      display: block;
+    }
+
+    .lobby-stat-l {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #333;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .lobby-desc {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar {
+      height: 2px;
+      background: #1a1a1a;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #c9a84c;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #333;
+      margin-bottom: 24px;
+    }
+
+    .progress-text span:last-child { color: #c9a84c; }
+
+    /* CARD */
+    .card-scene {
+      perspective: 1000px;
+      width: 100%;
+      height: 240px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 6px;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      border: 1px solid #1e1e1e;
+    }
+
+    .card-front {
+      background: #0f0f0f;
+      border-color: #c9a84c33;
+    }
+
+    .card-back {
+      background: #0a1200;
+      border-color: #c9a84c55;
+      transform: rotateY(180deg);
+    }
+
+    .card-hint {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 16px;
+    }
+
+    .card-clue {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .card-tap {
+      margin-top: 20px;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: #2a2a2a;
+      text-transform: uppercase;
+    }
+
+    .card-back .animal-name-reveal {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: #e8e8e8;
+      margin-bottom: 6px;
+      letter-spacing: 2px;
+    }
+
+    .card-back .sci-reveal {
+      font-size: 12px;
+      color: #444;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .card-back .relative-reveal {
+      font-size: 12px;
+      color: #4caf82;
+    }
+
+    .game-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    /* RESULTS */
+    .results { }
+
+    .score-display {
+      font-family: 'Cinzel', serif;
+      font-size: 64px;
+      font-weight: 900;
+      color: #c9a84c;
+      margin: 24px 0 8px;
+    }
+
+    .score-label {
+      font-size: 12px;
+      color: #444;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .score-stats {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .score-stat {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 4px;
+      padding: 14px 20px;
+      min-width: 90px;
+    }
+
+    .score-stat-n {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      color: #c9a84c;
+      display: block;
+    }
+
+    .score-stat-l {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #333;
+      margin-top: 3px;
+      display: block;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">WILD<span>PACK</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="animals.html">Explore</a></li>
+      <li><a href="game.html" class="active">Game</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="game-container">
+
+    <!-- LOBBY -->
+    <div id="lobby">
+      <p class="section-label">Test Your Knowledge</p>
+      <h1 class="section-title">Extinction Flashcards</h1>
+      <p class="lobby-desc">
+        Read the clues on each card and try to guess the animal.
+        Flip to reveal the answer and its living relative today.
+      </p>
+      <div class="lobby-stats">
+        <div class="lobby-stat">
+          <span class="lobby-stat-n">10</span>
+          <span class="lobby-stat-l">Cards</span>
+        </div>
+        <div class="lobby-stat">
+          <span class="lobby-stat-n">~3</span>
+          <span class="lobby-stat-l">Minutes</span>
+        </div>
+      </div>
+      <button class="btn-gold" onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- GAMEPLAY -->
+    <div id="gameplay" class="hidden">
+
+      <div class="progress-text">
+        <span>Card <span id="cardNum">1</span> of <span id="cardTotal">10</span></span>
+        <span id="scoreText">Score: 0</span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+
+      <div class="card-scene" onclick="flipCard()">
+        <div class="card-inner" id="cardInner">
+          <div class="card-face card-front">
+            <div class="card-hint">What animal is this?</div>
+            <p class="card-clue" id="cardClue">Loading...</p>
+            <p class="card-tap">Tap to flip</p>
+          </div>
+          <div class="card-face card-back">
+            <span class="badge" id="cardBadge"></span>
+            <div class="animal-name-reveal" id="cardName"></div>
+            <div class="sci-reveal" id="cardSci"></div>
+            <div class="relative-reveal">&#8594; Living relative: <span id="cardRelative"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-btns">
+        <button class="btn-ghost" onclick="prevCard()">&#8592; Previous</button>
+        <button class="btn-gold" onclick="nextCard()">Next Card &#8594;</button>
+      </div>
+
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results" class="hidden">
+      <p class="section-label">Round Complete</p>
+      <h2 class="section-title">Nice work.</h2>
+      <div class="score-display" id="finalScore">0%</div>
+      <p class="score-label">You completed all 10 cards</p>
+      <div class="score-stats">
+        <div class="score-stat">
+          <span class="score-stat-n" id="correctCount">0</span>
+          <span class="score-stat-l">Correct</span>
+        </div>
+        <div class="score-stat">
+          <span class="score-stat-n" id="missedCount">0</span>
+          <span class="score-stat-l">Missed</span>
+        </div>
+        <div class="score-stat">
+          <span class="score-stat-n" id="pctScore">0%</span>
+          <span class="score-stat-l">Score</span>
+        </div>
+      </div>
+      <div class="game-btns" style="justify-content:center">
+        <button class="btn-gold" onclick="restartGame()">Play Again</button>
+        <a class="btn-ghost" href="animals.html">Back to Explore</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="footer-logo">WILD<span>PACK</span></div>
+    <p>A ZCW Passion Project by Joseph</p>
+  </footer>
+
+  <script>
+    let animals = [];
+    let currentIndex = 0;
+    let score = 0;
+    let flipped = false;
+    let answered = [];
+
+    fetch('/api/animals')
+      .then(res => res.json())
+      .then(data => {
+        animals = data.sort(() => Math.random() - 0.5);
+      });
+
+    function startGame() {
+      currentIndex = 0;
+      score = 0;
+      answered = new Array(animals.length).fill(null);
+      document.getElementById('lobby').classList.add('hidden');
+      document.getElementById('gameplay').classList.remove('hidden');
+      document.getElementById('cardTotal').textContent = animals.length;
+      loadCard();
+    }
+
+    function loadCard() {
+      const animal = animals[currentIndex];
+      flipped = false;
+      document.getElementById('cardInner').classList.remove('flipped');
+      document.getElementById('cardNum').textContent = currentIndex + 1;
+      document.getElementById('scoreText').textContent = `Score: ${score}`;
+
+      const pct = (currentIndex / animals.length) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      const clue = `${animal.habitat} · ${animal.period} · ${animal.description.substring(0, 120)}...`;
+      document.getElementById('cardClue').textContent = clue;
+      document.getElementById('cardName').textContent = animal.name;
+      document.getElementById('cardSci').textContent = animal.scientificName;
+      document.getElementById('cardRelative').textContent = animal.livingRelative;
+
+      const badge = document.getElementById('cardBadge');
+      badge.textContent = animal.status.replace('_', '-');
+      badge.className = `badge badge-${animal.status.toLowerCase()}`;
+    }
+
+    function flipCard() {
+      const inner = document.getElementById('cardInner');
+      inner.classList.toggle('flipped');
+      flipped = !flipped;
+      if (flipped && answered[currentIndex] === null) {
+        answered[currentIndex] = true;
+        score++;
+      }
+    }
+
+    function nextCard() {
+      if (currentIndex < animals.length - 1) {
+        currentIndex++;
+        loadCard();
+      } else {
+        showResults();
+      }
+    }
+
+    function prevCard() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadCard();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('gameplay').classList.add('hidden');
+      document.getElementById('results').classList.remove('hidden');
+      const pct = Math.round((score / animals.length) * 100);
+      document.getElementById('finalScore').textContent = pct + '%';
+      document.getElementById('correctCount').textContent = score;
+      document.getElementById('missedCount').textContent = animals.length - score;
+      document.getElementById('pctScore').textContent = pct + '%';
+    }
+
+    function restartGame() {
+      animals = animals.sort(() => Math.random() - 0.5);
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById('gameplay').classList.remove('hidden');
+      currentIndex = 0;
+      score = 0;
+      answered = new Array(animals.length).fill(null);
+      loadCard();
+    }
+  </script>
+
+</body>
+</html>
