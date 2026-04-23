@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WildPack | About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .about-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 40px 100px;
+    }
+
+    .about-section {
+      margin-bottom: 48px;
+    }
+
+    .about-section p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.9;
+      margin-bottom: 14px;
+    }
+
+    .about-section p span {
+      color: #c9a84c;
+    }
+
+    .divider {
+      height: 1px;
+      background: #1a1a1a;
+      margin-bottom: 48px;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .tech-item {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 4px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .tech-label {
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c9a84c;
+    }
+
+    .tech-value {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .quote-box {
+      border-left: 2px solid #c9a84c;
+      padding: 16px 24px;
+      background: #0d0d0d;
+      border-radius: 0 4px 4px 0;
+      margin-top: 32px;
+    }
+
+    .quote-text {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      color: #888;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    .quote-author {
+      font-size: 11px;
+      color: #333;
+      margin-top: 8px;
+      letter-spacing: 1.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">WILD<span>PACK</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="animals.html">Explore</a></li>
+      <li><a href="game.html">Game</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="about-container">
+
+    <div class="about-section">
+      <p class="section-label">The Project</p>
+      <h1 class="section-title" style="text-align:left;margin-bottom:24px;">About WildPack</h1>
+
+      <p>
+        WildPack is a <span>passion project</span> built during the Java cohort at
+        Zip Code Wilmington. It started as a simple idea — an animal encyclopedia
+        for extinct species — and grew into a full-stack Spring Boot application
+        with a REST API, a JavaScript frontend, and a flashcard game.
+      </p>
+
+      <p>
+        The inspiration came from the news in <span>2025</span> that scientists
+        had successfully brought back the Dire Wolf. There was no clean, modern
+        place to read about that story alongside the rest of extinction history.
+        So I built one.
+      </p>
+
+      <p>
+        I've always been into animals and wildlife. Transitioning from warehouse
+        work into software development, this project gave me a chance to combine
+        something I genuinely care about with the skills I've been building at ZCW.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="about-section">
+      <p class="section-label">The Stack</p>
+      <h2 class="section-title" style="text-align:left;font-size:20px;margin-bottom:8px;">Tech Stack</h2>
+
+      <div class="tech-grid">
+        <div class="tech-item">
+          <span class="tech-label">Backend</span>
+          <span class="tech-value">Java 17 + Spring Boot 3</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">API</span>
+          <span class="tech-value">REST API — returns JSON</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Frontend</span>
+          <span class="tech-value">HTML + CSS + Vanilla JavaScript</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Database</span>
+          <span class="tech-value">H2 (dev) / MySQL (prod)</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Game</span>
+          <span class="tech-value">Vanilla JavaScript</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Tools</span>
+          <span class="tech-value">VS Code + Git + GitHub</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="about-section">
+      <p class="section-label">The Developer</p>
+      <h2 class="section-title" style="text-align:left;font-size:20px;margin-bottom:8px;">Joseph</h2>
+      <p>
+        Java cohort student at <span>Zip Code Wilmington</span>. Career changer.
+        Wildlife enthusiast. Building real things with real code.
+      </p>
+      <p>
+        My brother graduated from ZCW and pointed me toward Java. Best decision I made.
+        WildPack is v1 — there is a lot more coming.
+      </p>
+
+      <div class="quote-box">
+        <p class="quote-text">"From the warehouse floor to the pack."</p>
+        <p class="quote-author">— Joseph, ZCW Java Cohort 2026</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="footer-logo">WILD<span>PACK</span></div>
+    <p>A ZCW Passion Project by Joseph</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WildPack | Explore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .explore-header {
+      padding: 60px 40px 40px;
+      text-align: center;
+    }
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      max-width: 700px;
+      margin: 0 auto 20px;
+      padding: 0 40px;
+    }
+    .search-input {
+      flex: 1;
+      background: #111;
+      border: 1px solid #1e1e1e;
+      color: #e8e8e8;
+      padding: 12px 18px;
+      font-size: 13px;
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: #c9a84c55; }
+    .search-input::placeholder { color: #333; }
+    .filters {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      padding: 0 40px;
+    }
+    .filter-btn {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      color: #555;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .filter-btn:hover { border-color: #c9a84c55; color: #c9a84c; }
+    .filter-btn.active { border-color: #c9a84c; color: #c9a84c; }
+    .stats-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .stat {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 4px;
+      padding: 12px 20px;
+      text-align: center;
+      min-width: 90px;
+    }
+    .stat-n {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      color: #c9a84c;
+      display: block;
+    }
+    .stat-l {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #333;
+      margin-top: 4px;
+      display: block;
+    }
+    .all-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+    .no-results {
+      text-align: center;
+      color: #333;
+      font-size: 14px;
+      padding: 60px;
+      grid-column: 1/-1;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">WILD<span>PACK</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="animals.html" class="active">Explore</a></li>
+      <li><a href="game.html">Game</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="explore-header">
+    <p class="section-label">The Collection</p>
+    <h1 class="section-title">All Animals</h1>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-n" id="totalCount">0</span>
+      <span class="stat-l">Total</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n" id="extinctCount">0</span>
+      <span class="stat-l">Extinct</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n" id="deextinctCount">0</span>
+      <span class="stat-l">De-Extinct</span>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <input
+      class="search-input"
+      type="text"
+      id="searchInput"
+      placeholder="Search by name..."
+    />
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterAnimals('ALL', this)">All</button>
+    <button class="filter-btn" onclick="filterAnimals('EXTINCT', this)">Extinct</button>
+    <button class="filter-btn" onclick="filterAnimals('DE_EXTINCT', this)">De-Extinct</button>
+  </div>
+
+  <div class="all-cards" id="animalGrid"></div>
+
+  <footer class="footer">
+    <div class="footer-logo">WILD<span>PACK</span></div>
+    <p>A ZCW Passion Project by Joseph</p>
+  </footer>
+
+  <script>
+    let allAnimals = [];
+    let currentFilter = 'ALL';
+
+    fetch('/api/animals')
+      .then(res => res.json())
+      .then(animals => {
+        allAnimals = animals;
+        updateStats(animals);
+        renderCards(animals);
+      });
+
+    function updateStats(animals) {
+      document.getElementById('totalCount').textContent = animals.length;
+      document.getElementById('extinctCount').textContent = animals.filter(a => a.status === 'EXTINCT').length;
+      document.getElementById('deextinctCount').textContent = animals.filter(a => a.status === 'DE_EXTINCT').length;
+    }
+
+    function renderCards(animals) {
+      const grid = document.getElementById('animalGrid');
+      if (animals.length === 0) {
+        grid.innerHTML = '<p class="no-results">No animals found.</p>';
+        return;
+      }
+      grid.innerHTML = animals.map(animal => `
+        <div class="card" onclick="location.href='detail.html?id=${animal.id}'">
+          <div class="card-img">
+            <div class="card-placeholder">${animal.name.charAt(0)}</div>
+          </div>
+          <div class="card-body">
+            <span class="badge badge-${animal.status.toLowerCase()}">${animal.status.replace('_', '-')}</span>
+            <h3 class="card-name">${animal.name}</h3>
+            <p class="card-sci">${animal.scientificName}</p>
+            <p style="font-size:10px;color:#333;margin-top:6px;letter-spacing:0.5px;">${animal.continent}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterAnimals(status, btn) {
+      currentFilter = status;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      let filtered = allAnimals;
+      if (currentFilter !== 'ALL') {
+        filtered = filtered.filter(a => a.status === currentFilter);
+      }
+      if (search) {
+        filtered = filtered.filter(a => a.name.toLowerCase().includes(search));
+      }
+      renderCards(filtered);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+  </script>
+
+</body>
+</html>

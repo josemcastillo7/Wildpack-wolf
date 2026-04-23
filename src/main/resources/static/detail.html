@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WildPack | Animal Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .back-link {
+      display: inline-block;
+      padding: 24px 40px 0;
+      font-size: 11px;
+      color: #444;
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #c9a84c; }
+
+    .detail-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 40px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .detail-left {}
+
+    .animal-image {
+      width: 100%;
+      height: 260px;
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .animal-initial {
+      font-family: 'Cinzel', serif;
+      font-size: 100px;
+      font-weight: 900;
+      color: #1a1a1a;
+    }
+
+    .fun-fact-box {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 4px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+
+    .box-label {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .box-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .video-box {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .video-label {
+      padding: 12px 16px;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #c9a84c;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .video-placeholder {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      color: #333;
+      font-size: 12px;
+    }
+
+    .play-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid #c9a84c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-triangle {
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 12px solid #c9a84c;
+      margin-left: 3px;
+    }
+
+    .detail-right {}
+
+    .animal-status-badge {
+      margin-bottom: 12px;
+    }
+
+    .animal-name {
+      font-family: 'Cinzel', serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: #e8e8e8;
+      margin-bottom: 6px;
+      letter-spacing: 2px;
+      line-height: 1.1;
+    }
+
+    .animal-sci {
+      font-size: 14px;
+      color: #444;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 4px;
+      padding: 10px 14px;
+    }
+
+    .stat-box-label {
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #333;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .stat-box-value {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .description {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .relative-box {
+      background: #0d0d0d;
+      border: 1px solid #1e1e1e;
+      border-left: 2px solid #c9a84c;
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+    }
+
+    .relative-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .relative-value {
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">WILD<span>PACK</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="animals.html" class="active">Explore</a></li>
+      <li><a href="game.html">Game</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <a class="back-link" href="animals.html">&#8592; Back to Explore</a>
+
+  <div class="detail-container">
+
+    <div class="detail-left">
+      <div class="animal-image">
+        <div class="animal-initial" id="animalInitial">?</div>
+      </div>
+
+      <div class="fun-fact-box">
+        <span class="box-label">Fun Fact</span>
+        <p class="box-text" id="funFact">Loading...</p>
+      </div>
+
+      <div class="video-box">
+        <div class="video-label">Watch</div>
+        <div class="video-placeholder">
+          <div class="play-btn">
+            <div class="play-triangle"></div>
+          </div>
+          <span id="videoText">Documentary video coming soon</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-right">
+      <div class="animal-status-badge">
+        <span class="badge" id="statusBadge">Loading</span>
+      </div>
+
+      <h1 class="animal-name" id="animalName">Loading...</h1>
+      <p class="animal-sci" id="animalSci"></p>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-box-label">Status</span>
+          <span class="stat-box-value" id="statStatus">—</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Period</span>
+          <span class="stat-box-value" id="statPeriod">—</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Continent</span>
+          <span class="stat-box-value" id="statContinent">—</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-box-label">Habitat</span>
+          <span class="stat-box-value" id="statHabitat">—</span>
+        </div>
+      </div>
+
+      <p class="description" id="description">Loading...</p>
+
+      <div class="relative-box">
+        <span class="relative-label">Living Relative Today</span>
+        <span class="relative-value" id="livingRelative">—</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="footer-logo">WILD<span>PACK</span></div>
+    <p>A ZCW Passion Project by Joseph</p>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    if (id) {
+      fetch(`/api/animals/${id}`)
+        .then(res => res.json())
+        .then(animal => {
+          document.title = `WildPack | ${animal.name}`;
+          document.getElementById('animalInitial').textContent = animal.name.charAt(0);
+          document.getElementById('animalName').textContent = animal.name;
+          document.getElementById('animalSci').textContent = animal.scientificName;
+          document.getElementById('funFact').textContent = animal.funFact;
+          document.getElementById('description').textContent = animal.description;
+          document.getElementById('livingRelative').textContent = animal.livingRelative;
+          document.getElementById('statStatus').textContent = animal.status.replace('_', '-');
+          document.getElementById('statPeriod').textContent = animal.period;
+          document.getElementById('statContinent').textContent = animal.continent;
+          document.getElementById('statHabitat').textContent = animal.habitat;
+
+          const badge = document.getElementById('statusBadge');
+          badge.textContent = animal.status.replace('_', '-');
+          badge.className = `badge badge-${animal.status.toLowerCase()}`;
+        });
+    }
+  </script>
+
+</body>
+</html>
