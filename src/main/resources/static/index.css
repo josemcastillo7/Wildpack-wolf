@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400&display=swap');
+
+:root {
+    --gold: #C5A059;       /* The gold accent from your design */
+    --pure-black: #000000; /* Main background */
+    --light-black: #121212; /* Card background */
+    --border-gray: #222222;
+    --text-main: #E0E0E0;
+    --text-muted: #888888;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--pure-black);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif; /* Clean font for body text */
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 2. NAVIGATION */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 60px;
+    background-color: var(--pure-black);
+}
+
+.logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 3px;
+}
+
+.nav-links a {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--gold);
+}
+
+/* 3. HERO SECTION */
+.hero {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    /* Optional: Add your wolf background image here */
+    /* background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../images/wolf-bg.jpg'); */
+}
+
+.hero h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 5px;
+    color: var(--gold);
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+.hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 5rem;
+    letter-spacing: 10px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 700px;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+/* 4. BUTTONS */
+.hero-btns {
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    font-family: 'Cinzel', serif;
+    padding: 12px 35px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+}
+
+.btn-primary:hover {
+    background-color: var(--gold);
+    color: black;
+}
+
+.btn-secondary {
+    border: 1px solid #333;
+    color: var(--text-main);
+}
+
+.btn-secondary:hover {
+    background-color: #222;
+}
+
+/* 5. FUN FACT BAR */
+.fun-fact-bar {
+    width: 100%;
+    padding: 20px;
+    background-color: #0A0A0A;
+    border-top: 1px solid var(--border-gray);
+    border-bottom: 1px solid var(--border-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.fun-fact-bar .label {
+    color: #444;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+/* 6. ANIMAL GALLERY (The "Light Black" Cards) */
+.animal-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 80px 60px;
+}
+
+.animal-card {
+    background-color: var(--light-black);
+    border: 1px solid var(--border-gray);
+    padding: 40px 20px;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.animal-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+}
+
+.status-badge {
+    font-size: 0.65rem;
+    padding: 5px 12px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Status Colors */
+.de-extinct { background-color: #1a2a3a; color: #4a9eff; }
+.living { background-color: #1a2a1a; color: #4aff4a; }
+.vulnerable { background-color: #2a221a; color: #ffaa4a; }
+
+.animal-card h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    margin: 20px 0 5px 0;
+}
+
+.scientific-name {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
