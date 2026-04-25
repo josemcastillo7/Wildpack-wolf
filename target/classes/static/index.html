@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WildPack | Animal Encyclopedia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -21,7 +20,31 @@
   </nav>
 
   <section class="hero">
-    <div class="wolf-bg"></div>
+    <div class="wolf-bg">
+      <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" class="wolf-svg">
+        <path d="
+          M300 40 L275 10 L255 5 L248 30 L262 50
+          L235 35 L220 8 L210 35 L228 58
+          L205 55 L185 40 L180 65 L200 78
+          L178 88 L162 82 L158 108 L182 112
+          L168 130 L155 138 L160 165 L185 158
+          L178 180 L168 200 L182 210 L198 192
+          L202 218 L196 248 L214 255 L222 228
+          L228 256 L224 285 L242 290 L248 262
+          L255 290 L252 318 L268 322 L272 294
+          L280 322 L278 348 L296 350 L298 322
+          L306 350 L304 375 L322 374 L318 346
+          L328 368 L330 388 L348 384 L340 358
+          L358 372 L364 390 L380 384 L368 355
+          L385 348 L395 310 L378 285 L368 262
+          L382 240 L396 220 L400 195 L384 185
+          L396 165 L408 145 L402 118 L380 122
+          L395 105 L412 88 L406 62 L385 70
+          L396 50 L404 28 L386 18 L368 40
+          L352 58 L338 30 L320 8 L308 32 Z
+        " fill="#1a1a1a" opacity="0.5"/>
+      </svg>
+    </div>
     <div class="hero-content">
       <p class="hero-sub">The Extinct Animal Encyclopedia</p>
       <h1 class="hero-title">WILDPACK</h1>
@@ -58,7 +81,10 @@
           grid.innerHTML += `
             <div class="card" onclick="location.href='detail.html?id=${animal.id}'">
               <div class="card-img">
-                <div class="card-placeholder">${animal.name.charAt(0)}</div>
+                ${animal.imageUrl
+                  ? `<img src="${animal.imageUrl}" alt="${animal.name}" style="width:100%;height:100%;object-fit:cover;"/>`
+                  : `<div class="card-placeholder">${animal.name.charAt(0)}</div>`
+                }
               </div>
               <div class="card-body">
                 <span class="badge badge-${animal.status.toLowerCase()}">${animal.status.replace('_', '-')}</span>

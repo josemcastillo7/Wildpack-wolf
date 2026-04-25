@@ -64,9 +64,17 @@ body {
 .wolf-bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 50% 40%, #1c1400 0%, transparent 70%),
-    radial-gradient(ellipse at center, #111 0%, #0a0a0a 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.wolf-svg {
+  width: 520px;
+  height: 520px;
+  opacity: 0.12;
+  filter: blur(1px);
 }
 
 .hero-content {
