@@ -181,7 +181,10 @@
       grid.innerHTML = animals.map(animal => `
         <div class="card" onclick="location.href='detail.html?id=${animal.id}'">
           <div class="card-img">
-            <div class="card-placeholder">${animal.name.charAt(0)}</div>
+            ${animal.imageUrl
+              ? `<img src="${animal.imageUrl}" alt="${animal.name}" style="width:100%;height:100%;object-fit:cover;"/>`
+              : `<div class="card-placeholder">${animal.name.charAt(0)}</div>`
+            }
           </div>
           <div class="card-body">
             <span class="badge badge-${animal.status.toLowerCase()}">${animal.status.replace('_', '-')}</span>
