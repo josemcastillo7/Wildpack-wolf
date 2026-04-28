@@ -369,8 +369,12 @@
       const pct = (currentIndex / animals.length) * 100;
       document.getElementById('progressFill').style.width = pct + '%';
 
-      const clue = `${animal.habitat} · ${animal.period} · ${animal.description.substring(0, 120)}...`;
+      const statusLabel = animal.status === 'DE_EXTINCT' ? 'De-Extinct' : 'Extinct';
+      const clue = `Habitat: ${animal.habitat}\nPeriod: ${animal.period}\nContinent: ${animal.continent}\nStatus: ${statusLabel}\nLiving Relative: ${animal.livingRelative}`;
       document.getElementById('cardClue').textContent = clue;
+      document.getElementById('cardClue').style.whiteSpace = 'pre-line';
+      document.getElementById('cardClue').style.textAlign = 'left';
+
       document.getElementById('cardName').textContent = animal.name;
       document.getElementById('cardSci').textContent = animal.scientificName;
       document.getElementById('cardRelative').textContent = animal.livingRelative;
@@ -378,16 +382,6 @@
       const badge = document.getElementById('cardBadge');
       badge.textContent = animal.status.replace('_', '-');
       badge.className = `badge badge-${animal.status.toLowerCase()}`;
-    }
-
-    function flipCard() {
-      const inner = document.getElementById('cardInner');
-      inner.classList.toggle('flipped');
-      flipped = !flipped;
-      if (flipped && answered[currentIndex] === null) {
-        answered[currentIndex] = true;
-        score++;
-      }
     }
 
     function nextCard() {
