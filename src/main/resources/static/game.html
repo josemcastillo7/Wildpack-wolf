@@ -35,7 +35,7 @@
     .lobby-stat-n {
       font-family: 'Cinzel', serif;
       font-size: 26px;
-      color: #c9a84c;
+      color: #d4af37;
       display: block;
     }
 
@@ -43,14 +43,14 @@
       font-size: 9px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #333;
+      color: #888;
       margin-top: 4px;
       display: block;
     }
 
     .lobby-desc {
       font-size: 14px;
-      color: #555;
+      color: #b8b8b8;
       line-height: 1.7;
       margin-bottom: 36px;
       max-width: 440px;
@@ -69,7 +69,7 @@
 
     .progress-fill {
       height: 100%;
-      background: #c9a84c;
+      background: #d4af37;
       border-radius: 2px;
       transition: width 0.4s ease;
     }
@@ -78,17 +78,17 @@
       display: flex;
       justify-content: space-between;
       font-size: 11px;
-      color: #333;
+      color: #aaa;
       margin-bottom: 24px;
     }
 
-    .progress-text span:last-child { color: #c9a84c; }
+    .progress-text span:last-child { color: #d4af37; }
 
     /* CARD */
     .card-scene {
       perspective: 1000px;
       width: 100%;
-      height: 240px;
+      height: 280px;
       margin-bottom: 20px;
       cursor: pointer;
     }
@@ -120,12 +120,12 @@
 
     .card-front {
       background: #0f0f0f;
-      border-color: #c9a84c33;
+      border-color: #d4af3733;
     }
 
     .card-back {
       background: #0a1200;
-      border-color: #c9a84c55;
+      border-color: #d4af3755;
       transform: rotateY(180deg);
     }
 
@@ -133,22 +133,31 @@
       font-size: 9px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #c9a84c;
-      margin-bottom: 16px;
+      color: #d4af37;
+      margin-bottom: 18px;
     }
 
     .card-clue {
       font-size: 14px;
-      color: #666;
-      line-height: 1.7;
-      text-align: center;
+      color: #c8c8c8;
+      line-height: 1.9;
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    .card-clue strong {
+      color: #d4af37;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 11px;
     }
 
     .card-tap {
       margin-top: 20px;
       font-size: 9px;
       letter-spacing: 2px;
-      color: #2a2a2a;
+      color: #555;
       text-transform: uppercase;
     }
 
@@ -163,7 +172,7 @@
 
     .card-back .sci-reveal {
       font-size: 12px;
-      color: #444;
+      color: #888;
       font-style: italic;
       margin-bottom: 12px;
     }
@@ -187,13 +196,13 @@
       font-family: 'Cinzel', serif;
       font-size: 64px;
       font-weight: 900;
-      color: #c9a84c;
+      color: #d4af37;
       margin: 24px 0 8px;
     }
 
     .score-label {
       font-size: 12px;
-      color: #444;
+      color: #888;
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 32px;
@@ -217,7 +226,7 @@
     .score-stat-n {
       font-family: 'Cinzel', serif;
       font-size: 22px;
-      color: #c9a84c;
+      color: #d4af37;
       display: block;
     }
 
@@ -225,7 +234,7 @@
       font-size: 9px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: #333;
+      color: #888;
       margin-top: 3px;
       display: block;
     }
@@ -284,7 +293,7 @@
         <div class="card-inner" id="cardInner">
           <div class="card-face card-front">
             <div class="card-hint">What animal is this?</div>
-            <p class="card-clue" id="cardClue">Loading...</p>
+            <div class="card-clue" id="cardClue">Loading...</div>
             <p class="card-tap">Tap to flip</p>
           </div>
           <div class="card-face card-back">
@@ -370,10 +379,13 @@
       document.getElementById('progressFill').style.width = pct + '%';
 
       const statusLabel = animal.status === 'DE_EXTINCT' ? 'De-Extinct' : 'Extinct';
-      const clue = `Habitat: ${animal.habitat}\nPeriod: ${animal.period}\nContinent: ${animal.continent}\nStatus: ${statusLabel}\nLiving Relative: ${animal.livingRelative}`;
-      document.getElementById('cardClue').textContent = clue;
-      document.getElementById('cardClue').style.whiteSpace = 'pre-line';
-      document.getElementById('cardClue').style.textAlign = 'left';
+
+      document.getElementById('cardClue').innerHTML =
+        `<strong>Habitat:</strong> ${animal.habitat}\n` +
+        `<strong>Period:</strong> ${animal.period}\n` +
+        `<strong>Continent:</strong> ${animal.continent}\n` +
+        `<strong>Status:</strong> ${statusLabel}\n` +
+        `<strong>Living Relative:</strong> ${animal.livingRelative}`;
 
       document.getElementById('cardName').textContent = animal.name;
       document.getElementById('cardSci').textContent = animal.scientificName;
@@ -383,6 +395,17 @@
       badge.textContent = animal.status.replace('_', '-');
       badge.className = `badge badge-${animal.status.toLowerCase()}`;
     }
+
+    function flipCard() {
+      const inner = document.getElementById('cardInner');
+      inner.classList.toggle('flipped');
+      flipped = !flipped;
+      if (flipped && answered[currentIndex] === null) {
+        answered[currentIndex] = true;
+        score++;
+      }
+    }
+
     function nextCard() {
       if (currentIndex < animals.length - 1) {
         currentIndex++;
