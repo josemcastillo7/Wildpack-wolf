@@ -11,13 +11,13 @@
       display: inline-block;
       padding: 24px 40px 0;
       font-size: 11px;
-      color: #444;
+      color: #aaaaaa;
       text-decoration: none;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       transition: color 0.2s;
     }
-    .back-link:hover { color: #c9a84c; }
+    .back-link:hover { color: #d4af37; }
 
     .detail-container {
       max-width: 1000px;
@@ -27,8 +27,6 @@
       grid-template-columns: 1fr 1fr;
       gap: 40px;
     }
-
-    .detail-left {}
 
     .animal-image {
       width: 100%;
@@ -40,6 +38,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 16px;
+      overflow: hidden;
     }
 
     .animal-initial {
@@ -61,14 +60,14 @@
       font-size: 9px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #c9a84c;
+      color: #d4af37;
       margin-bottom: 8px;
       display: block;
     }
 
     .box-text {
       font-size: 13px;
-      color: #666;
+      color: #c8c8c8;
       line-height: 1.7;
       font-style: italic;
     }
@@ -85,18 +84,17 @@
       font-size: 9px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #c9a84c;
+      color: #d4af37;
       border-bottom: 1px solid #1a1a1a;
     }
 
     .video-placeholder {
-      height: 120px;
+      height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      cursor: pointer;
-      color: #333;
+      color: #aaa;
       font-size: 12px;
     }
 
@@ -104,7 +102,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1px solid #c9a84c;
+      border: 1px solid #d4af37;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -115,14 +113,8 @@
       height: 0;
       border-top: 7px solid transparent;
       border-bottom: 7px solid transparent;
-      border-left: 12px solid #c9a84c;
+      border-left: 12px solid #d4af37;
       margin-left: 3px;
-    }
-
-    .detail-right {}
-
-    .animal-status-badge {
-      margin-bottom: 12px;
     }
 
     .animal-name {
@@ -137,7 +129,7 @@
 
     .animal-sci {
       font-size: 14px;
-      color: #444;
+      color: #888;
       font-style: italic;
       margin-bottom: 24px;
     }
@@ -160,19 +152,19 @@
       font-size: 8px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #333;
+      color: #888;
       margin-bottom: 4px;
       display: block;
     }
 
     .stat-box-value {
       font-size: 12px;
-      color: #888;
+      color: #c8c8c8;
     }
 
     .description {
       font-size: 13px;
-      color: #555;
+      color: #c8c8c8;
       line-height: 1.9;
       margin-bottom: 24px;
     }
@@ -180,7 +172,7 @@
     .relative-box {
       background: #0d0d0d;
       border: 1px solid #1e1e1e;
-      border-left: 2px solid #c9a84c;
+      border-left: 2px solid #d4af37;
       border-radius: 0 4px 4px 0;
       padding: 14px 18px;
     }
@@ -189,14 +181,57 @@
       font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #c9a84c;
+      color: #d4af37;
       margin-bottom: 6px;
       display: block;
     }
 
     .relative-value {
       font-size: 14px;
-      color: #888;
+      color: #c8c8c8;
+    }
+
+    .map-box {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 4px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+
+    .map-label {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .map-wrapper {
+      width: 100%;
+      background: #060606;
+      border-radius: 3px;
+      padding: 12px;
+      border: 1px solid #151515;
+    }
+
+    #worldMap {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    #worldMap path {
+      fill: #1f1f1f;
+      stroke: #2a2a2a;
+      stroke-width: 1;
+      transition: fill 0.4s ease, filter 0.4s ease;
+    }
+
+    #worldMap path.highlighted {
+      fill: #d4af37;
+      filter: drop-shadow(0 0 8px rgba(212,175,55,0.6));
     }
   </style>
 </head>
@@ -217,7 +252,7 @@
   <div class="detail-container">
 
     <div class="detail-left">
-      <div class="animal-image">
+      <div class="animal-image" id="animalImageBox">
         <div class="animal-initial" id="animalInitial">?</div>
       </div>
 
@@ -228,17 +263,12 @@
 
       <div class="video-box">
         <div class="video-label">Watch</div>
-        <div class="video-placeholder">
-          <div class="play-btn">
-            <div class="play-triangle"></div>
-          </div>
-          <span id="videoText">Documentary video coming soon</span>
-        </div>
+        <div id="videoContainer"></div>
       </div>
     </div>
 
     <div class="detail-right">
-      <div class="animal-status-badge">
+      <div style="margin-bottom:12px;">
         <span class="badge" id="statusBadge">Loading</span>
       </div>
 
@@ -270,21 +300,13 @@
         <span class="map-label">Where It Lived</span>
         <div class="map-wrapper">
           <svg id="worldMap" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-            <!-- North America -->
             <path id="continent-NA" data-continent="North America" d="M 158 90 L 200 70 L 260 75 L 310 95 L 340 130 L 330 170 L 290 200 L 250 220 L 230 250 L 200 260 L 170 240 L 140 200 L 120 150 L 130 110 Z" />
-            <!-- South America -->
             <path id="continent-SA" data-continent="South America" d="M 270 280 L 310 290 L 330 320 L 340 370 L 320 420 L 290 450 L 270 440 L 255 400 L 250 350 L 260 310 Z" />
-            <!-- Europe -->
             <path id="continent-EU" data-continent="Europe" d="M 470 110 L 530 100 L 570 115 L 580 140 L 555 160 L 520 165 L 485 155 L 470 135 Z" />
-            <!-- Africa -->
             <path id="continent-AF" data-continent="Africa" d="M 480 200 L 540 195 L 580 220 L 600 270 L 590 330 L 560 380 L 520 390 L 490 360 L 475 310 L 470 250 Z" />
-            <!-- Eurasia (covers both Europe and Asia for animals labeled "Eurasia") -->
             <path id="continent-EA" data-continent="Eurasia" d="M 470 110 L 540 95 L 620 100 L 700 110 L 780 120 L 830 140 L 820 175 L 770 185 L 700 180 L 630 175 L 570 170 L 520 165 L 485 155 L 470 135 Z" />
-            <!-- Asia -->
             <path id="continent-AS" data-continent="Asia" d="M 600 110 L 700 110 L 780 120 L 830 140 L 820 175 L 770 185 L 720 195 L 670 190 L 620 180 L 600 150 Z" />
-            <!-- Australia -->
             <path id="continent-AU" data-continent="Australia" d="M 760 340 L 820 335 L 860 355 L 855 385 L 820 400 L 780 395 L 755 375 Z" />
-            <!-- Antarctica -->
             <path id="continent-AN" data-continent="Antarctica" d="M 200 470 L 800 470 L 820 490 L 180 490 Z" />
           </svg>
         </div>
@@ -312,7 +334,19 @@
         .then(res => res.json())
         .then(animal => {
           document.title = `WildPack | ${animal.name}`;
-          document.getElementById('animalInitial').textContent = animal.name.charAt(0);
+
+          // image
+          if (animal.imageUrl) {
+            const img = document.createElement('img');
+            img.src = animal.imageUrl;
+            img.alt = animal.name;
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+            document.getElementById('animalInitial').replaceWith(img);
+          } else {
+            document.getElementById('animalInitial').textContent = animal.name.charAt(0);
+          }
+
+          // text fields
           document.getElementById('animalName').textContent = animal.name;
           document.getElementById('animalSci').textContent = animal.scientificName;
           document.getElementById('funFact').textContent = animal.funFact;
@@ -323,9 +357,61 @@
           document.getElementById('statContinent').textContent = animal.continent;
           document.getElementById('statHabitat').textContent = animal.habitat;
 
+          // badge
           const badge = document.getElementById('statusBadge');
           badge.textContent = animal.status.replace('_', '-');
           badge.className = `badge badge-${animal.status.toLowerCase()}`;
+
+          // map highlight
+          const continentMap = document.querySelector(`#worldMap path[data-continent="${animal.continent}"]`);
+          if (continentMap) {
+            continentMap.classList.add('highlighted');
+          }
+
+          // videos
+          const videoContainer = document.getElementById('videoContainer');
+          let videoHTML = '';
+
+          if (animal.youtubeId) {
+            videoHTML += `
+              <iframe
+                width="100%"
+                height="200"
+                src="https://www.youtube.com/embed/${animal.youtubeId}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="display:block;margin-bottom:8px;">
+              </iframe>
+            `;
+          }
+
+          if (animal.youtubeId2) {
+            videoHTML += `
+              <iframe
+                width="100%"
+                height="200"
+                src="https://www.youtube.com/embed/${animal.youtubeId2}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="display:block;">
+              </iframe>
+            `;
+          }
+
+          if (!videoHTML) {
+            videoHTML = `
+              <div class="video-placeholder">
+                <div class="play-btn">
+                  <div class="play-triangle"></div>
+                </div>
+                <span>Documentary video coming soon</span>
+              </div>
+            `;
+          }
+
+          videoContainer.innerHTML = videoHTML;
         });
     }
   </script>
