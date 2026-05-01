@@ -266,6 +266,30 @@
 
       <p class="description" id="description">Loading...</p>
 
+      <div class="map-box">
+        <span class="map-label">Where It Lived</span>
+        <div class="map-wrapper">
+          <svg id="worldMap" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+            <!-- North America -->
+            <path id="continent-NA" data-continent="North America" d="M 158 90 L 200 70 L 260 75 L 310 95 L 340 130 L 330 170 L 290 200 L 250 220 L 230 250 L 200 260 L 170 240 L 140 200 L 120 150 L 130 110 Z" />
+            <!-- South America -->
+            <path id="continent-SA" data-continent="South America" d="M 270 280 L 310 290 L 330 320 L 340 370 L 320 420 L 290 450 L 270 440 L 255 400 L 250 350 L 260 310 Z" />
+            <!-- Europe -->
+            <path id="continent-EU" data-continent="Europe" d="M 470 110 L 530 100 L 570 115 L 580 140 L 555 160 L 520 165 L 485 155 L 470 135 Z" />
+            <!-- Africa -->
+            <path id="continent-AF" data-continent="Africa" d="M 480 200 L 540 195 L 580 220 L 600 270 L 590 330 L 560 380 L 520 390 L 490 360 L 475 310 L 470 250 Z" />
+            <!-- Eurasia (covers both Europe and Asia for animals labeled "Eurasia") -->
+            <path id="continent-EA" data-continent="Eurasia" d="M 470 110 L 540 95 L 620 100 L 700 110 L 780 120 L 830 140 L 820 175 L 770 185 L 700 180 L 630 175 L 570 170 L 520 165 L 485 155 L 470 135 Z" />
+            <!-- Asia -->
+            <path id="continent-AS" data-continent="Asia" d="M 600 110 L 700 110 L 780 120 L 830 140 L 820 175 L 770 185 L 720 195 L 670 190 L 620 180 L 600 150 Z" />
+            <!-- Australia -->
+            <path id="continent-AU" data-continent="Australia" d="M 760 340 L 820 335 L 860 355 L 855 385 L 820 400 L 780 395 L 755 375 Z" />
+            <!-- Antarctica -->
+            <path id="continent-AN" data-continent="Antarctica" d="M 200 470 L 800 470 L 820 490 L 180 490 Z" />
+          </svg>
+        </div>
+      </div>
+
       <div class="relative-box">
         <span class="relative-label">Living Relative Today</span>
         <span class="relative-value" id="livingRelative">—</span>
