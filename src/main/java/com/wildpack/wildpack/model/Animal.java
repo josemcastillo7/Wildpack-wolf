@@ -29,6 +29,8 @@ public class Animal {
     private String imageUrl;
     private String youtubeId;
 
+    private String youtubeId2;
+
     public Animal() {}
 
     public Long getId() { 
@@ -106,4 +108,11 @@ public class Animal {
     public void setYoutubeId(String youtubeId) {
          this.youtubeId = youtubeId;
          }
+         public String getYoutubeId2() {
+            return youtubeId2;
+         }
+         public void setYoutubeId2(String YoutubeId2) {
+            this.youtubeId2 = YoutubeId2;
+         }
+         
 }

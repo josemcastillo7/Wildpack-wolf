@@ -11,13 +11,13 @@
       display: inline-block;
       padding: 24px 40px 0;
       font-size: 11px;
-      color: #aaaaaa;
+      color: #444;
       text-decoration: none;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       transition: color 0.2s;
     }
-    .back-link:hover { color: #d4af37; }
+    .back-link:hover { color: #c9a84c; }
 
     .detail-container {
       max-width: 1000px;
@@ -60,14 +60,14 @@
       font-size: 9px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #d4af37;
+      color: #c9a84c;
       margin-bottom: 8px;
       display: block;
     }
 
     .box-text {
       font-size: 13px;
-      color: #c8c8c8;
+      color: #666;
       line-height: 1.7;
       font-style: italic;
     }
@@ -84,7 +84,7 @@
       font-size: 9px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #d4af37;
+      color: #c9a84c;
       border-bottom: 1px solid #1a1a1a;
     }
 
@@ -94,7 +94,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      color: #aaa;
+      color: #333;
       font-size: 12px;
     }
 
@@ -102,7 +102,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1px solid #d4af37;
+      border: 1px solid #c9a84c;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -113,7 +113,7 @@
       height: 0;
       border-top: 7px solid transparent;
       border-bottom: 7px solid transparent;
-      border-left: 12px solid #d4af37;
+      border-left: 12px solid #c9a84c;
       margin-left: 3px;
     }
 
@@ -129,7 +129,7 @@
 
     .animal-sci {
       font-size: 14px;
-      color: #888;
+      color: #444;
       font-style: italic;
       margin-bottom: 24px;
     }
@@ -152,19 +152,19 @@
       font-size: 8px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #888;
+      color: #333;
       margin-bottom: 4px;
       display: block;
     }
 
     .stat-box-value {
       font-size: 12px;
-      color: #c8c8c8;
+      color: #888;
     }
 
     .description {
       font-size: 13px;
-      color: #c8c8c8;
+      color: #555;
       line-height: 1.9;
       margin-bottom: 24px;
     }
@@ -172,7 +172,7 @@
     .relative-box {
       background: #0d0d0d;
       border: 1px solid #1e1e1e;
-      border-left: 2px solid #d4af37;
+      border-left: 2px solid #c9a84c;
       border-radius: 0 4px 4px 0;
       padding: 14px 18px;
     }
@@ -181,57 +181,14 @@
       font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #d4af37;
+      color: #c9a84c;
       margin-bottom: 6px;
       display: block;
     }
 
     .relative-value {
       font-size: 14px;
-      color: #c8c8c8;
-    }
-
-    .map-box {
-      background: #0d0d0d;
-      border: 1px solid #1a1a1a;
-      border-radius: 4px;
-      padding: 16px 18px;
-      margin-bottom: 14px;
-    }
-
-    .map-label {
-      font-size: 9px;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: #d4af37;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .map-wrapper {
-      width: 100%;
-      background: #060606;
-      border-radius: 3px;
-      padding: 12px;
-      border: 1px solid #151515;
-    }
-
-    #worldMap {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    #worldMap path {
-      fill: #1f1f1f;
-      stroke: #2a2a2a;
-      stroke-width: 1;
-      transition: fill 0.4s ease, filter 0.4s ease;
-    }
-
-    #worldMap path.highlighted {
-      fill: #d4af37;
-      filter: drop-shadow(0 0 8px rgba(212,175,55,0.6));
+      color: #888;
     }
   </style>
 </head>
@@ -296,22 +253,6 @@
 
       <p class="description" id="description">Loading...</p>
 
-      <div class="map-box">
-        <span class="map-label">Where It Lived</span>
-        <div class="map-wrapper">
-          <svg id="worldMap" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-            <path id="continent-NA" data-continent="North America" d="M 158 90 L 200 70 L 260 75 L 310 95 L 340 130 L 330 170 L 290 200 L 250 220 L 230 250 L 200 260 L 170 240 L 140 200 L 120 150 L 130 110 Z" />
-            <path id="continent-SA" data-continent="South America" d="M 270 280 L 310 290 L 330 320 L 340 370 L 320 420 L 290 450 L 270 440 L 255 400 L 250 350 L 260 310 Z" />
-            <path id="continent-EU" data-continent="Europe" d="M 470 110 L 530 100 L 570 115 L 580 140 L 555 160 L 520 165 L 485 155 L 470 135 Z" />
-            <path id="continent-AF" data-continent="Africa" d="M 480 200 L 540 195 L 580 220 L 600 270 L 590 330 L 560 380 L 520 390 L 490 360 L 475 310 L 470 250 Z" />
-            <path id="continent-EA" data-continent="Eurasia" d="M 470 110 L 540 95 L 620 100 L 700 110 L 780 120 L 830 140 L 820 175 L 770 185 L 700 180 L 630 175 L 570 170 L 520 165 L 485 155 L 470 135 Z" />
-            <path id="continent-AS" data-continent="Asia" d="M 600 110 L 700 110 L 780 120 L 830 140 L 820 175 L 770 185 L 720 195 L 670 190 L 620 180 L 600 150 Z" />
-            <path id="continent-AU" data-continent="Australia" d="M 760 340 L 820 335 L 860 355 L 855 385 L 820 400 L 780 395 L 755 375 Z" />
-            <path id="continent-AN" data-continent="Antarctica" d="M 200 470 L 800 470 L 820 490 L 180 490 Z" />
-          </svg>
-        </div>
-      </div>
-
       <div class="relative-box">
         <span class="relative-label">Living Relative Today</span>
         <span class="relative-value" id="livingRelative">—</span>
@@ -361,12 +302,6 @@
           const badge = document.getElementById('statusBadge');
           badge.textContent = animal.status.replace('_', '-');
           badge.className = `badge badge-${animal.status.toLowerCase()}`;
-
-          // map highlight
-          const continentMap = document.querySelector(`#worldMap path[data-continent="${animal.continent}"]`);
-          if (continentMap) {
-            continentMap.classList.add('highlighted');
-          }
 
           // videos
           const videoContainer = document.getElementById('videoContainer');

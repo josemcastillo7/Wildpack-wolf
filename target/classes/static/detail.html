@@ -28,8 +28,6 @@
       gap: 40px;
     }
 
-    .detail-left {}
-
     .animal-image {
       width: 100%;
       height: 260px;
@@ -40,6 +38,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 16px;
+      overflow: hidden;
     }
 
     .animal-initial {
@@ -90,12 +89,11 @@
     }
 
     .video-placeholder {
-      height: 120px;
+      height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      cursor: pointer;
       color: #333;
       font-size: 12px;
     }
@@ -117,12 +115,6 @@
       border-bottom: 7px solid transparent;
       border-left: 12px solid #c9a84c;
       margin-left: 3px;
-    }
-
-    .detail-right {}
-
-    .animal-status-badge {
-      margin-bottom: 12px;
     }
 
     .animal-name {
@@ -217,7 +209,7 @@
   <div class="detail-container">
 
     <div class="detail-left">
-      <div class="animal-image">
+      <div class="animal-image" id="animalImageBox">
         <div class="animal-initial" id="animalInitial">?</div>
       </div>
 
@@ -228,17 +220,12 @@
 
       <div class="video-box">
         <div class="video-label">Watch</div>
-        <div class="video-placeholder">
-          <div class="play-btn">
-            <div class="play-triangle"></div>
-          </div>
-          <span id="videoText">Documentary video coming soon</span>
-        </div>
+        <div id="videoContainer"></div>
       </div>
     </div>
 
     <div class="detail-right">
-      <div class="animal-status-badge">
+      <div style="margin-bottom:12px;">
         <span class="badge" id="statusBadge">Loading</span>
       </div>
 
@@ -288,7 +275,19 @@
         .then(res => res.json())
         .then(animal => {
           document.title = `WildPack | ${animal.name}`;
-          document.getElementById('animalInitial').textContent = animal.name.charAt(0);
+
+          // image
+          if (animal.imageUrl) {
+            const img = document.createElement('img');
+            img.src = animal.imageUrl;
+            img.alt = animal.name;
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+            document.getElementById('animalInitial').replaceWith(img);
+          } else {
+            document.getElementById('animalInitial').textContent = animal.name.charAt(0);
+          }
+
+          // text fields
           document.getElementById('animalName').textContent = animal.name;
           document.getElementById('animalSci').textContent = animal.scientificName;
           document.getElementById('funFact').textContent = animal.funFact;
@@ -299,9 +298,55 @@
           document.getElementById('statContinent').textContent = animal.continent;
           document.getElementById('statHabitat').textContent = animal.habitat;
 
+          // badge
           const badge = document.getElementById('statusBadge');
           badge.textContent = animal.status.replace('_', '-');
           badge.className = `badge badge-${animal.status.toLowerCase()}`;
+
+          // videos
+          const videoContainer = document.getElementById('videoContainer');
+          let videoHTML = '';
+
+          if (animal.youtubeId) {
+            videoHTML += `
+              <iframe
+                width="100%"
+                height="200"
+                src="https://www.youtube.com/embed/${animal.youtubeId}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="display:block;margin-bottom:8px;">
+              </iframe>
+            `;
+          }
+
+          if (animal.youtubeId2) {
+            videoHTML += `
+              <iframe
+                width="100%"
+                height="200"
+                src="https://www.youtube.com/embed/${animal.youtubeId2}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="display:block;">
+              </iframe>
+            `;
+          }
+
+          if (!videoHTML) {
+            videoHTML = `
+              <div class="video-placeholder">
+                <div class="play-btn">
+                  <div class="play-triangle"></div>
+                </div>
+                <span>Documentary video coming soon</span>
+              </div>
+            `;
+          }
+
+          videoContainer.innerHTML = videoHTML;
         });
     }
   </script>
